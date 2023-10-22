@@ -7,8 +7,8 @@ class WebsitesProgrammingLanguagesPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.table_component = TableComponent(self.browser, "Programming languages used in most popular websites")
-        self.url = "https://en.wikipedia.org/wiki/Programming_languages_used_in_most_popular_websites"
+        self.table_component = TableComponent(self.browser, 'Programming languages used in most popular websites')
+        self.url = 'https://en.wikipedia.org/wiki/Programming_languages_used_in_most_popular_websites'
 
     def open_page(self):
         self.browser.open(self.url)

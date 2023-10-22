@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from first_task.utils import Utils
+from first_task.utils import extract_text
 
 
 class Browser:
@@ -21,4 +21,4 @@ class Browser:
         self.find_element(locator).click()
 
     def get_element_text(self, element):
-        return Utils.extract_text(element)
+        return extract_text(element)

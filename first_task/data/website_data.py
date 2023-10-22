@@ -1,14 +1,13 @@
 import string
 from dataclasses import dataclass
 
-from first_task.utils import Utils
-import re
+from first_task.utils import extract_field_value_from_dict, remove_extra_symbols_from_text_number
 
 
 @dataclass
 class Website:
     name: string
-    popularity: string
+    popularity: int
     frontend: string
     backend: string
     database: string
@@ -16,15 +15,13 @@ class Website:
 
     @staticmethod
     def map_elements_to_website_dataclass(elements_and_values: dict):
-        name = Utils.extract_field_value_from_dict(elements_and_values, "Websites")
-        pattern = r'\[\d+\]'
-        popularity = (Utils.extract_field_value_from_dict(elements_and_values, "Popularity")
-                      .replace(",", "")).replace(".", "").split(" ")[0]
-        popularity = re.sub(pattern, '', popularity)
-        frontend = Utils.extract_field_value_from_dict(elements_and_values, "Front-end")
-        backend = Utils.extract_field_value_from_dict(elements_and_values, "Back-end")
-        database = Utils.extract_field_value_from_dict(elements_and_values, "Database")
-        notes = Utils.extract_field_value_from_dict(elements_and_values, "Notes")
+        name = extract_field_value_from_dict(elements_and_values, 'Websites')
+        popularity = remove_extra_symbols_from_text_number(
+            extract_field_value_from_dict(elements_and_values, 'Popularity'))
+        frontend = extract_field_value_from_dict(elements_and_values, 'Front-end')
+        backend = extract_field_value_from_dict(elements_and_values, 'Back-end')
+        database = extract_field_value_from_dict(elements_and_values, 'Database')
+        notes = extract_field_value_from_dict(elements_and_values, 'Notes')
         return Website(name=name,
                        popularity=popularity,
                        frontend=frontend,

@@ -4,13 +4,13 @@ from selenium import webdriver
 from first_task.browser import Browser
 
 
-@pytest.mark.usefixtures("setup")
+@pytest.mark.usefixtures('driver_setup')
 class TestBase:
     driver: webdriver
     browser: Browser
 
     @pytest.fixture
-    def setup(self):
+    def driver_setup(self):
         self.driver = webdriver.Chrome()
         self.browser = Browser(self.driver)
         yield

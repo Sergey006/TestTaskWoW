@@ -1,12 +1,13 @@
 import pytest
 
 from first_task.page_objects.pages.websites_programming_languages_page import WebsitesProgrammingLanguagesPage
+from first_task.tests.assertions import assert_websites_popularity_more_than
 from first_task.tests.test_base import TestBase
 
 
 class TestProgrammingLanguagesBase(TestBase):
 
-    @pytest.mark.parametrize("expected_popularity_value", [10 ** 7,
+    @pytest.mark.parametrize('expected_popularity_value', [10 ** 7,
                                                            1.5 * (10 ** 7),
                                                            5 * (10 ** 7),
                                                            10 ** 8,
@@ -19,4 +20,4 @@ class TestProgrammingLanguagesBase(TestBase):
                     .open_page()
                     .get_all_websites())
         # assert
-        assert all(float(website.popularity) > expected_popularity_value for website in websites)
+        assert_websites_popularity_more_than(websites, expected_popularity_value)
