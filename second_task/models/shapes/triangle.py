@@ -8,8 +8,9 @@ class Triangle(BaseShape):
         self.base_width = height * 2 - 1
 
     def draw(self):
-        print(f'Drawing Triangle with height={self.height}')
-        for i in range(1, self.height * 2):
-            print(' ' * (self.base_width - i), end="")
-            print('*' * (i * 2 - 1), end="")
-            print()
+        if self.height > 0:
+            print(f'Drawing Triangle with height={self.height}')
+            for i in range(1, self.height * 2):
+                print(' ' * (self.base_width - i), end="")
+                print('*' * (i * 2 - 1), end="")
+                print()

@@ -9,8 +9,8 @@ class PathFinder:
     __ground_cell_symbol = f'{Colors.GREEN.value}*{Colors.END_COLOR.value}'
     __water_cell_symbol = f'{Colors.CYAN.value}.{Colors.END_COLOR.value}'
     __visited_cell_symbol = f'{Colors.RED.value}-{Colors.END_COLOR.value}'
-    __finish_cell_symbol = f'{Colors.RED.value}F{Colors.END_COLOR.value}'
-    __start_cell_symbol = f'{Colors.RED.value}S{Colors.END_COLOR.value}'
+    __finish_cell_symbol = f'{Colors.RED.value}B{Colors.END_COLOR.value}'
+    __start_cell_symbol = f'{Colors.RED.value}A{Colors.END_COLOR.value}'
 
     def __init__(self, rows_qty, cols_qty, start_xy, end_xy):
         self.__field = self.__build_field(rows_qty, cols_qty)

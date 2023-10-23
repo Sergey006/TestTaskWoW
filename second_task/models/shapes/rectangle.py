@@ -8,8 +8,9 @@ class Rectangle(BaseShape):
         self.width = width
 
     def draw(self):
-        print(f'Drawing Rectangle with height={self.height} and width={self.width}')
-        for i in range(0, self.height):
-            for x in range(0, self.width):
-                print('*', end="")
-            print()
+        if self.height > 0 and self.width > 0:
+            print(f'Drawing Rectangle with height={self.height} and width={self.width}')
+            for i in range(0, self.height):
+                for x in range(0, self.width):
+                    print('*', end="")
+                print()
