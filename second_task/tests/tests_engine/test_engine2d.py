@@ -46,6 +46,17 @@ class TestEngine2D:
         assert '*' in captured
         assert f'Drawing Rectangle with height={height} and width={width}' in captured
 
+    def test_rectangle_draw(self, capsys):
+        engine = Engine2D()
+        height, width = 2, 2
+        expected_output = '''**\n**'''
+        engine.add_shape(Rectangle(height, width))
+        engine.draw()
+        captured = capsys.readouterr().out
+
+        assert f'Drawing Rectangle with height={height} and width={width}' in captured
+        assert expected_output in captured
+
     @pytest.mark.parametrize("height_width", [(0, 0), (0, 1), (1, 0), (1, -1), (1, -1), (-1, -1)])
     def test_rectangle_draw_with_incorrect_parameters(self, capsys, height_width):
         engine = Engine2D()
