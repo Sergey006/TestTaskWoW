@@ -1,5 +1,5 @@
+import random
 from collections import deque
-from random import random
 from typing import Any
 
 from second_task.models.colors import Colors
@@ -13,10 +13,7 @@ class PathFinder:
     __start_cell_symbol = f'{Colors.RED.value}S{Colors.END_COLOR.value}'
 
     def __init__(self, rows_qty, cols_qty, start_xy, end_xy):
-        self.__field = [
-            [self.__ground_cell_symbol if random() < 0.1 else self.__water_cell_symbol for _ in range(cols_qty)] for _
-            in
-            range(rows_qty)]
+        self.__field = self.__build_field(rows_qty, cols_qty)
         self.__rows_number, self.__cols_number = rows_qty, cols_qty
         self.__start = start_xy
         self.__end = end_xy
@@ -24,6 +21,16 @@ class PathFinder:
             self.__field[self.__start[0]][self.__start[1]] = self.__water_cell_symbol
         if self.__field[self.__end[0]][self.__end[1]] == self.__ground_cell_symbol:
             self.__field[self.__end[0]][self.__end[1]] = self.__water_cell_symbol
+
+    def find_and_show_path(self):
+        print(f'\nSearching the way for moving from {self.__start} to {self.__end} in this field: ')
+        self.print_field()
+
+        cells_graph = self.__build_graph(self.__field)
+        visited_nodes = self.__find_path(self.__start, self.__end, cells_graph)
+
+        print(f'\nThe way for moving from {self.__start} to {self.__end}: ')
+        self.__show_path(visited_nodes, self.__end)
 
     def __build_graph(self, field):
         def get_next_nodes_coordinates(cur_x, cur_y):
@@ -76,12 +83,14 @@ class PathFinder:
                     self.__field[visited_node[0]][visited_node[1]] = self.__start_cell_symbol
         self.print_field()
 
-    def find_and_show_path(self):
-        print(f'\nSearching the way for moving from {self.__start} to {self.__end} in this field: ')
-        self.print_field()
+    def __build_field(self, rows, cols):
+        field = [[self.__water_cell_symbol for _ in range(cols)] for _ in range(rows)]
 
-        cells_graph = self.__build_graph(self.__field)
-        visited_nodes = self.__find_path(self.__start, self.__end, cells_graph)
+        all_cells = [(i, j) for i in range(rows) for j in range(cols)]
+        percent_of_ground = 0.3
+        num_cells_to_fill = int(percent_of_ground * rows * cols)
 
-        print(f'\nFound the way for moving from {self.__start} to {self.__end}: ')
-        self.__show_path(visited_nodes, self.__end)
+        cells_to_fill = random.sample(all_cells, num_cells_to_fill)
+        for i, j in cells_to_fill:
+            field[i][j] = self.__ground_cell_symbol
+        return field
